@@ -31,11 +31,6 @@
       ]
     },
     "web": {
-      "build": {
-        "babel": {
-          "include": ["@expo/webpack-config"]
-        }
-      },
       "name": "NutriGest",
       "shortName": "NutriGest",
       "lang": "pt-BR",
