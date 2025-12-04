@@ -1,0 +1,71 @@
+{
+  "expo": {
+    "name": "NutriGest",
+    "slug": "nutrigest",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#E8F5E9"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nutrigest.app",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Precisamos acessar sua câmera para escanear códigos de barras de alimentos.",
+        "NSSpeechRecognitionUsageDescription": "Precisamos acessar o reconhecimento de voz para registrar alimentos por voz.",
+        "NSMicrophoneUsageDescription": "Precisamos acessar o microfone para reconhecimento de voz."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E8F5E9"
+      },
+      "package": "com.nutrigest.app",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "build": {
+        "babel": {
+          "include": ["@expo/webpack-config"]
+        }
+      },
+      "name": "NutriGest",
+      "shortName": "NutriGest",
+      "lang": "pt-BR",
+      "scope": "/",
+      "themeColor": "#81C784",
+      "backgroundColor": "#E8F5E9",
+      "display": "standalone",
+      "orientation": "portrait",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permitir acesso à câmera para escanear códigos de barras."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "nutrigest-app"
+      }
+    },
+    "updates": {
+      "enabled": true,
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD"
+    }
+  }
+}
+
