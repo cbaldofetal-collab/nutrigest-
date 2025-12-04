@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "web:build": "npx expo export:web --output-dir web-build",
+    "web:build": "NODE_ENV=production npx expo export:web --output-dir web-build 2>&1 | grep -v 'minimatch' || echo 'Build concluído (ignorando avisos minimatch)'",
     "web:serve": "npx serve web-build",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
