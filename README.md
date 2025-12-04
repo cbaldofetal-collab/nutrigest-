@@ -1,100 +1,116 @@
-# NutriGest
+# 🍎 NutriGest - Acompanhamento Nutricional para Gestantes
 
-Aplicativo móvel de monitoramento nutricional inteligente para gestantes.
+Aplicativo completo para acompanhamento nutricional durante a gestação, desenvolvido com React Native e Expo.
 
-## 📱 Sobre o Projeto
+## ✨ Funcionalidades
 
-O **NutriGest** é uma solução completa de acompanhamento nutricional durante a gestação, oferecendo:
+- 📊 **Dashboard Interativo** - Visualização completa do dia com gráficos
+- 🍽️ **Registro de Refeições** - Registre alimentos e acompanhe nutrientes
+- 📈 **Gráficos e Estatísticas** - Distribuição de calorias e nutrientes críticos
+- 📄 **Relatórios em PDF** - Gere relatórios completos para compartilhar com médicos
+- 🏥 **Exames Médicos** - Registre e acompanhe exames laboratoriais
+- 📚 **Receitas** - Biblioteca de receitas saudáveis
+- 📅 **Planejador de Refeições** - Sugestões de cardápio semanal
+- ⭐ **Favoritos** - Salve alimentos mais consumidos
+- 💧 **Hidratação** - Acompanhe consumo de água
+- ⚖️ **Peso** - Registre e acompanhe evolução do peso
+- 🤒 **Sintomas** - Registre sintomas como náuseas e azia
 
-- ✅ Registro inteligente de alimentos (busca, voz, câmera)
-- ✅ Análise em tempo real de nutrientes
-- ✅ Alertas proativos para nutrientes críticos
-- ✅ Relatórios profissionais para médicos
-- ✅ Acompanhamento de peso e hidratação
-- ✅ Planejador de refeições e biblioteca de receitas
+## 🚀 Deploy
 
-## 🚀 Tecnologias
+### Status: ✅ Pronto para Deploy
 
-- **React Native** com TypeScript
-- **Expo** (para desenvolvimento rápido)
-- **React Navigation** (navegação)
-- **Realm/WatermelonDB** (banco de dados local)
-- **React Native Charts** (gráficos)
-- **React Native PDF** (geração de relatórios)
+O projeto está configurado e pronto para deploy na **Vercel**.
 
-## 📋 Pré-requisitos
+### Passos Rápidos:
 
-- Node.js 18+
-- npm ou yarn
-- Expo CLI
-- iOS Simulator (Mac) ou Android Studio (para emulador)
+1. **Criar repositório no GitHub:**
+   - Acesse: https://github.com/new
+   - Nome: `nutrigest`
+   - Crie o repositório (público ou privado)
 
-## 🛠️ Instalação
+2. **Conectar ao GitHub:**
+   ```bash
+   git remote add origin https://github.com/SEU_USUARIO/nutrigest.git
+   git branch -M main
+   git push -u origin main
+   ```
 
+3. **Deploy na Vercel:**
+   - Acesse: https://vercel.com
+   - Conecte com GitHub
+   - Selecione o repositório `nutrigest`
+   - Configure:
+     - Build Command: `npm run web:build`
+     - Output Directory: `web-build`
+   - Clique em "Deploy"
+
+4. **Pronto!** Você terá uma URL pública como: `https://nutrigest.vercel.app`
+
+📖 **Guia Completo:** Veja `DEPLOY_RAPIDO.md` para instruções detalhadas.
+
+## 🛠️ Desenvolvimento Local
+
+### Instalar Dependências
 ```bash
-# Instalar dependências
 npm install
-
-# Iniciar o servidor de desenvolvimento
-npm start
-
-# Executar no iOS
-npm run ios
-
-# Executar no Android
-npm run android
 ```
 
-## 📁 Estrutura do Projeto
+### Rodar no Navegador
+```bash
+npm run web
+```
+
+### Build para Produção
+```bash
+npm run web:build
+npm run web:serve
+```
+
+## 📱 Tecnologias
+
+- **React Native** + **Expo** - Framework mobile
+- **TypeScript** - Type safety
+- **Zustand** - State management
+- **React Navigation** - Navegação
+- **AsyncStorage** - Armazenamento local
+- **Chart.js** - Gráficos
+- **Expo Print** - Geração de PDFs
+
+## 📋 Estrutura do Projeto
 
 ```
 nutrigest/
 ├── src/
-│   ├── components/      # Componentes reutilizáveis
-│   ├── screens/         # Telas do aplicativo
-│   ├── navigation/      # Configuração de navegação
-│   ├── services/        # Serviços (API, banco de dados)
-│   ├── utils/           # Funções utilitárias
-│   ├── types/           # Definições TypeScript
-│   ├── constants/       # Constantes e configurações
-│   └── theme/           # Tema e estilos
-├── assets/              # Imagens, ícones, fontes
-└── docs/                # Documentação adicional
+│   ├── components/     # Componentes reutilizáveis
+│   ├── screens/        # Telas do app
+│   ├── services/       # Serviços (storage, API, etc)
+│   ├── store/          # Zustand stores
+│   ├── navigation/     # Configuração de navegação
+│   ├── theme/          # Tema e estilos
+│   ├── types/          # TypeScript types
+│   └── utils/          # Funções utilitárias
+├── assets/             # Imagens e assets
+├── app.json            # Configuração Expo
+└── package.json        # Dependências
 ```
 
-## 🎯 Roadmap
+## 🎯 Características
 
-### Fase 1: MVP ✅ COMPLETO
-- [x] Estrutura inicial do projeto
-- [x] Sistema de registro de alimentos (busca, favoritos)
-- [x] Análise básica de nutrientes
-- [x] Dashboard de visualização
-- [x] Controle de peso e hidratação
-- [x] Relatórios PDF básicos
-- [x] Onboarding inicial melhorado
-- [x] Gráficos de evolução
-- [x] Análise de padrões
-- [x] Registro de sintomas
-- [x] Biblioteca de receitas
-- [x] Planejador de refeições
-- [ ] Reconhecimento de voz (opcional)
-- [ ] Escaneamento por câmera (opcional)
-
-### Fase 2: Consolidação
-- [ ] Integração com API real de alimentos
-- [ ] Integração com Apple Health/Google Fit
-- [ ] Backend e sincronização
-
-### Fase 3: Expansão
-- [ ] Portal web para profissionais
-- [ ] Integrações com wearables
-- [ ] Machine Learning para personalização
+- ✅ **Offline-First** - Funciona sem internet
+- ✅ **Responsivo** - Adapta-se a diferentes tamanhos de tela
+- ✅ **Acessível** - Suporte a leitores de tela
+- ✅ **Type-Safe** - TypeScript em todo o código
+- ✅ **Testado** - Testes unitários básicos
 
 ## 📄 Licença
 
-Este projeto está sob licença proprietária.
+Este projeto é privado.
 
-## 👥 Equipe
+## 👥 Contribuição
 
-Desenvolvido com ❤️ para gestantes e profissionais de saúde.
+Este é um projeto MVP. Para contribuições futuras, entre em contato.
 
+---
+
+**Desenvolvido com ❤️ para gestantes**
