@@ -8,9 +8,7 @@
     "splash": {
       "backgroundColor": "#E8F5E9"
     },
-    "assetBundlePatterns": [
-      "assets/**/*"
-    ],
+    "assetBundlePatterns": [],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.nutrigest.app",
