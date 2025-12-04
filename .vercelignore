@@ -1,0 +1,5 @@
+# Ignorar arquivos desnecessários no deploy
+node_modules/.cache
+.expo
+dist
+
