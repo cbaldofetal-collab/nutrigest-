@@ -46,7 +46,7 @@
       "backgroundColor": "#E8F5E9",
       "display": "standalone",
       "orientation": "portrait",
-      "bundler": "metro"
+      "bundler": "webpack"
     },
     "plugins": [
       [
