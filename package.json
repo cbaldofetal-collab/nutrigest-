@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "postinstall": "patch-package",
-    "web:build": "npx expo export:web --output-dir web-build",
+    "web:build": "EXPO_NO_ASSET_BUNDLING=1 npx expo export:web --output-dir web-build",
     "web:serve": "npx serve web-build",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
