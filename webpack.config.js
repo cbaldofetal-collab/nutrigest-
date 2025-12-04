@@ -5,6 +5,8 @@ module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync(
     {
       ...env,
+      mode: argv.mode || 'production',
+      projectRoot: __dirname,
       babel: {
         dangerouslyAddModulePathsToTranspile: ['@react-navigation'],
       },
@@ -17,6 +19,8 @@ module.exports = async function (env, argv) {
     ...config.output,
     path: path.resolve(__dirname, 'web-build'),
     publicPath: '/',
+    filename: 'static/js/[name].[contenthash:8].js',
+    chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
   };
 
   // Otimizações para desktop
@@ -24,6 +28,11 @@ module.exports = async function (env, argv) {
     ...config.resolve.alias,
     'react-native$': 'react-native-web',
   };
+
+  // Entry point
+  if (!config.entry) {
+    config.entry = path.resolve(__dirname, 'App.tsx');
+  }
 
   return config;
 };
