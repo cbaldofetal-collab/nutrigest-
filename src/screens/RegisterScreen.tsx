@@ -3,11 +3,12 @@ import { View, Text, StyleSheet, ScrollView, Alert, TouchableOpacity, Modal, Tex
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '../theme';
-import { FoodSearchInput, FoodQuantityInput, Button, Card } from '../components';
+import { FoodSearchInput, FoodQuantityInput, Button, Card, Loading, ErrorMessage } from '../components';
 import { useMealsStore } from '../store';
 import { Food, MealType } from '../types';
 import { MEAL_TYPES } from '../constants';
 import { formatDate } from '../utils';
+import { handleError } from '../utils/errorHandler';
 import { addCustomFood } from '../services/foodDatabase';
 
 export function RegisterScreen() {
@@ -96,8 +97,8 @@ export function RegisterScreen() {
       setQuantity(1);
       Alert.alert('Sucesso', 'Alimento criado com sucesso!');
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Não foi possível criar o alimento';
-      Alert.alert('Erro', errorMessage);
+      const appError = handleError(error);
+      Alert.alert('Erro', appError.userMessage);
       console.error('Erro ao criar alimento:', error);
     } finally {
       setIsCreatingFood(false);
@@ -142,8 +143,8 @@ export function RegisterScreen() {
         },
       ]);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Não foi possível registrar o alimento';
-      Alert.alert('Erro', errorMessage);
+      const appError = handleError(error);
+      Alert.alert('Erro', appError.userMessage);
       console.error('Erro ao registrar alimento:', error);
     } finally {
       setIsRegistering(false);

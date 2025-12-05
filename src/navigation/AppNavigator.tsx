@@ -12,9 +12,6 @@ import { MealsHistoryScreen } from '../screens/MealsHistoryScreen';
 import { FavoritesScreen } from '../screens/FavoritesScreen';
 import { StatisticsScreen } from '../screens/StatisticsScreen';
 import { SymptomsScreen } from '../screens/SymptomsScreen';
-import { RecipesScreen } from '../screens/RecipesScreen';
-import { RecipeDetailScreen } from '../screens/RecipeDetailScreen';
-import { MealPlannerScreen } from '../screens/MealPlannerScreen';
 import { ExamsScreen } from '../screens/ExamsScreen';
 
 const Tab = createBottomTabNavigator();
@@ -27,7 +24,6 @@ function DashboardStack() {
       <Stack.Screen name="MealsHistory" component={MealsHistoryScreen} />
       <Stack.Screen name="Statistics" component={StatisticsScreen} />
       <Stack.Screen name="Symptoms" component={SymptomsScreen} />
-      <Stack.Screen name="MealPlanner" component={MealPlannerScreen} />
       <Stack.Screen name="Exams" component={ExamsScreen} />
     </Stack.Navigator>
   );
@@ -48,15 +44,6 @@ function RegisterStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="RegisterMain" component={RegisterScreen} />
       <Stack.Screen name="Favorites" component={FavoritesScreen} />
-    </Stack.Navigator>
-  );
-}
-
-function RecipesStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="RecipesMain" component={RecipesScreen} />
-      <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
     </Stack.Navigator>
   );
 }
@@ -88,14 +75,6 @@ export function AppNavigator() {
         options={{
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 24 }}>📊</Text>,
-        }}
-      />
-      <Tab.Screen
-        name="Recipes"
-        component={RecipesStack}
-        options={{
-          tabBarLabel: 'Receitas',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 24 }}>🍳</Text>,
         }}
       />
       <Tab.Screen

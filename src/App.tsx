@@ -8,6 +8,7 @@ import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { AppNavigator } from './navigation/AppNavigator';
 import { WelcomeScreen } from './screens/WelcomeScreen';
 import { OnboardingScreen } from './screens/OnboardingScreen';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { theme } from './theme';
 import { isOnboardingCompleted, setOnboardingCompleted } from './services/onboarding';
 import { useUserStore } from './store';
@@ -63,20 +64,22 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <SafeAreaProvider>
-        {showWelcome ? (
-          <WelcomeScreen onGetStarted={handleWelcomeComplete} />
-        ) : showOnboarding ? (
-          <OnboardingScreen onComplete={handleOnboardingComplete} />
-        ) : (
-          <NavigationContainer>
-            <AppNavigator />
-            <StatusBar style="auto" />
-          </NavigationContainer>
-        )}
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView style={styles.container}>
+        <SafeAreaProvider>
+          {showWelcome ? (
+            <WelcomeScreen onGetStarted={handleWelcomeComplete} />
+          ) : showOnboarding ? (
+            <OnboardingScreen onComplete={handleOnboardingComplete} />
+          ) : (
+            <NavigationContainer>
+              <AppNavigator />
+              <StatusBar style="auto" />
+            </NavigationContainer>
+          )}
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }
 

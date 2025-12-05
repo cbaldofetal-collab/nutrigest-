@@ -1,5 +1,45 @@
 # Changelog - NutriGest
 
+## [0.6.0] - 2024-01-XX
+
+### Adicionado
+- ✅ Componente Loading reutilizável para operações assíncronas
+- ✅ Componente ErrorMessage para exibição de erros amigáveis
+- ✅ ErrorBoundary para capturar erros do React
+- ✅ Sistema de tratamento de erros centralizado (errorHandler)
+- ✅ Loading states em todas as telas principais
+- ✅ Mensagens de erro amigáveis e contextuais
+- ✅ Validações robustas em todos os stores
+
+### Melhorado
+- ✅ Tratamento de erros em todas as operações assíncronas
+- ✅ Feedback visual durante carregamento de dados
+- ✅ Experiência do usuário mais fluida com loading states
+- ✅ Mensagens de erro mais claras e acionáveis
+- ✅ Validação de dados antes de salvar
+- ✅ Tratamento de erros de rede, timeout e permissões
+
+### Funcionalidades Implementadas
+
+#### Sistema de Loading
+- Componente Loading reutilizável
+- Loading states em Dashboard, Register, Symptoms, Reports
+- Loading fullscreen durante carregamento inicial
+- Indicadores visuais durante operações assíncronas
+
+#### Tratamento de Erros
+- ErrorHandler centralizado com mensagens amigáveis
+- Categorização de erros (rede, timeout, permissões)
+- ErrorBoundary para capturar erros do React
+- Componente ErrorMessage com opção de retry
+- Logs detalhados em modo desenvolvimento
+
+#### Validações
+- Validação de dados antes de salvar refeições
+- Validação de sintomas (tipo, intensidade, data)
+- Validação de quantidade e limites
+- Mensagens de erro específicas por contexto
+
 ## [0.5.0] - 2024-01-XX
 
 ### Adicionado

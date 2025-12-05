@@ -13,7 +13,7 @@ npm run web
 ```
 
 Isso vai:
-- Abrir automaticamente no navegador (geralmente em `http://localhost:19006`)
+- Abrir automaticamente no navegador (geralmente em `4http://localhost:19006`)
 - Mostrar o app funcionando no computador
 - Atualizar automaticamente quando você fizer mudanças no código
 

@@ -11,10 +11,11 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { theme } from '../theme';
-import { Card, Button } from '../components';
+import { Card, Button, Loading, ErrorMessage } from '../components';
 import { useUserStore, useMealsStore, useWeightStore } from '../store';
 import { generateReportPDF, shareReportPDF, ReportType, ReportData } from '../services/reportGenerator';
 import { formatDate, subtractDaysFromDate, calculateAverageNutrition } from '../utils';
+import { handleError } from '../utils/errorHandler';
 
 export function ReportsScreen() {
   const [loading, setLoading] = useState(false);
@@ -171,7 +172,8 @@ export function ReportsScreen() {
         );
       }
     } catch (error: any) {
-      Alert.alert('Erro', error.message || 'Não foi possível gerar o relatório');
+      const appError = handleError(error);
+      Alert.alert('Erro', appError.userMessage);
       console.error('Erro ao gerar relatório:', error);
     } finally {
       setLoading(false);

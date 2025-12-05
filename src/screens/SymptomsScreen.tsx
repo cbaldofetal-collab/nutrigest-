@@ -14,11 +14,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '../theme';
-import { Card, Button, SymptomSelector } from '../components';
+import { Card, Button, SymptomSelector, Loading } from '../components';
 import { useSymptomsStore } from '../store';
 import { SymptomType } from '../types';
 import { SYMPTOM_TYPES, INTENSITY_LEVELS } from '../constants';
 import { formatDate, formatDateTime } from '../utils';
+import { handleError } from '../utils/errorHandler';
 
 export function SymptomsScreen() {
   const navigation = useNavigation();
@@ -36,10 +37,19 @@ export function SymptomsScreen() {
 
   const today = new Date();
   const todaySymptoms = getSymptomsByDate(today);
+  const isLoading = useSymptomsStore((state) => state.isLoading);
 
   useEffect(() => {
     loadSymptoms();
   }, []);
+
+  if (isLoading && entries.length === 0) {
+    return (
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <Loading message="Carregando sintomas..." fullScreen />
+      </SafeAreaView>
+    );
+  }
 
   const error = useSymptomsStore((state) => state.error);
   const clearError = useSymptomsStore((state) => state.clearError);
@@ -93,8 +103,13 @@ export function SymptomsScreen() {
           text: 'Remover',
           style: 'destructive',
           onPress: async () => {
-            await removeSymptom(entryId);
-            Alert.alert('Sucesso', 'Sintoma removido');
+            try {
+              await removeSymptom(entryId);
+              Alert.alert('Sucesso', 'Sintoma removido');
+            } catch (error) {
+              const appError = handleError(error);
+              Alert.alert('Erro', appError.userMessage);
+            }
           },
         },
       ]

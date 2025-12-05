@@ -144,25 +144,6 @@ export interface ReportData {
   recommendations: string[];
 }
 
-export interface Recipe {
-  id: string;
-  name: string;
-  description: string;
-  imageUrl?: string;
-  prepTime: number; // minutos
-  cookTime: number; // minutos
-  servings: number;
-  ingredients: Array<{
-    foodId: string;
-    quantity: number;
-    unit: string;
-  }>;
-  instructions: string[];
-  tags: string[];
-  suitableForSymptoms: SymptomType[];
-  nutrition: Partial<Food>;
-}
-
 export interface ExamEntry {
   id: string;
   userId: string;

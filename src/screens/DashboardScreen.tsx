@@ -49,9 +49,22 @@ export function DashboardScreen() {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await Promise.all([loadUser(), loadMeals(), loadHydration(), loadSymptoms()]);
-    setRefreshing(false);
+    try {
+      await Promise.all([loadUser(), loadMeals(), loadHydration(), loadSymptoms()]);
+    } catch (error) {
+      console.error('Erro ao atualizar dados:', error);
+    } finally {
+      setRefreshing(false);
+    }
   };
+
+  if (user === null && !refreshing) {
+    return (
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <Loading message="Carregando seus dados..." fullScreen />
+      </SafeAreaView>
+    );
+  }
 
   const hasLowNutrients = CRITICAL_NUTRIENTS.some((nutrient) => {
     const current = dailyNutrition[nutrient.key as keyof typeof dailyNutrition] as number;
@@ -193,26 +206,6 @@ export function DashboardScreen() {
           </Text>
         </Card>
 
-        <Card style={styles.mealPlannerCard}>
-          <View style={styles.mealPlannerHeader}>
-            <View>
-              <Text style={styles.sectionTitle}>📅 Planejador de Refeições</Text>
-              <Text style={styles.mealPlannerDescription}>
-                Receba sugestões de cardápio semanal personalizado
-              </Text>
-            </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('MealPlanner' as never)}
-              style={styles.mealPlannerButton}
-              accessibilityRole="button"
-              accessibilityLabel="Abrir planejador de refeições"
-              accessibilityHint="Veja sugestões de cardápio semanal personalizado"
-            >
-              <Text style={styles.mealPlannerButtonText}>Abrir →</Text>
-            </TouchableOpacity>
-          </View>
-        </Card>
-
         <Card style={styles.symptomsCard}>
           <View style={styles.symptomsHeader}>
             <Text style={styles.sectionTitle}>🤒 Sintomas</Text>
@@ -342,33 +335,6 @@ const styles = StyleSheet.create({
   waterBreakdown: {
     ...theme.typography.bodySmall,
     color: theme.colors.secondary,
-    fontWeight: '600',
-  },
-  mealPlannerCard: {
-    marginBottom: theme.spacing.md,
-    backgroundColor: theme.colors.secondaryLight,
-    borderLeftWidth: 4,
-    borderLeftColor: theme.colors.secondary,
-  },
-  mealPlannerHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  mealPlannerDescription: {
-    ...theme.typography.bodySmall,
-    color: theme.colors.textSecondary,
-    marginTop: theme.spacing.xs,
-  },
-  mealPlannerButton: {
-    paddingHorizontal: theme.spacing.md,
-    paddingVertical: theme.spacing.sm,
-    borderRadius: theme.borderRadius.md,
-    backgroundColor: theme.colors.secondary,
-  },
-  mealPlannerButtonText: {
-    ...theme.typography.body,
-    color: theme.colors.surface,
     fontWeight: '600',
   },
   statsCard: {

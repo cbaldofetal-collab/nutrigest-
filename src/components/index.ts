@@ -13,6 +13,9 @@ export { NutritionChart } from './NutritionChart';
 export { MealSummaryCard } from './MealSummaryCard';
 export { DailyMealsBreakdown } from './DailyMealsBreakdown';
 export { SymptomSelector } from './SymptomSelector';
+export { Loading } from './Loading';
+export { ErrorMessage } from './ErrorMessage';
+export { ErrorBoundary } from './ErrorBoundary';
 export { MealCaloriesChart } from './MealCaloriesChart';
 export { CriticalNutrientsChart } from './CriticalNutrientsChart';
 

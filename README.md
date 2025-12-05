@@ -9,8 +9,6 @@ Aplicativo completo para acompanhamento nutricional durante a gestação, desenv
 - 📈 **Gráficos e Estatísticas** - Distribuição de calorias e nutrientes críticos
 - 📄 **Relatórios em PDF** - Gere relatórios completos para compartilhar com médicos
 - 🏥 **Exames Médicos** - Registre e acompanhe exames laboratoriais
-- 📚 **Receitas** - Biblioteca de receitas saudáveis
-- 📅 **Planejador de Refeições** - Sugestões de cardápio semanal
 - ⭐ **Favoritos** - Salve alimentos mais consumidos
 - 💧 **Hidratação** - Acompanhe consumo de água
 - ⚖️ **Peso** - Registre e acompanhe evolução do peso

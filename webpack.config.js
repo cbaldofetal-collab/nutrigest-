@@ -2,6 +2,9 @@ const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 const path = require('path');
 
 module.exports = async function (env, argv) {
+  // Evitar problemas com minimatch durante o build
+  process.env.EXPO_NO_DOTENV = '1';
+  
   const config = await createExpoWebpackConfigAsync(
     {
       ...env,
