@@ -83,7 +83,7 @@ export function OnboardingScreen({ onComplete }: { onComplete: () => void }) {
       await setUser({
         id: `user_${Date.now()}`,
         name: name.trim(),
-        email: email.trim() || '',
+        email: email.trim() || undefined, // undefined em vez de string vazia
         gestationalWeek: weekNum,
         initialWeight: weightNum,
         currentWeight: weightNum,
@@ -93,10 +93,14 @@ export function OnboardingScreen({ onComplete }: { onComplete: () => void }) {
         createdAt: new Date(),
       });
 
+      // Aguardar um pouco para garantir que o estado foi atualizado
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       onComplete();
     } catch (error) {
-      Alert.alert('Erro', 'Não foi possível salvar suas informações');
-      console.error(error);
+      const errorMessage = error instanceof Error ? error.message : 'Não foi possível salvar suas informações';
+      Alert.alert('Erro', errorMessage);
+      console.error('Erro ao completar onboarding:', error);
     }
   };
 

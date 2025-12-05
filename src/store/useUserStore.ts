@@ -20,7 +20,8 @@ const validateUser = (user: User): string | null => {
   if (!user.name || user.name.trim().length < 2) {
     return 'O nome deve ter pelo menos 2 caracteres';
   }
-  if (!user.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
+  // Email é opcional, mas se fornecido, deve ser válido
+  if (user.email && user.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
     return 'Email inválido';
   }
   if (user.gestationalWeek < 1 || user.gestationalWeek > 42) {
@@ -32,8 +33,16 @@ const validateUser = (user: User): string | null => {
   if (user.height <= 0 || user.height > 250) {
     return 'Altura deve estar entre 0 e 250 cm';
   }
-  if (!user.dueDate || user.dueDate <= new Date()) {
-    return 'Data prevista de parto deve ser uma data futura';
+  if (!user.dueDate) {
+    return 'Data prevista de parto é obrigatória';
+  }
+  // Permitir data prevista que seja hoje ou futura (não precisa ser estritamente futura)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const dueDate = new Date(user.dueDate);
+  dueDate.setHours(0, 0, 0, 0);
+  if (dueDate < today) {
+    return 'Data prevista de parto não pode ser no passado';
   }
   return null;
 };
