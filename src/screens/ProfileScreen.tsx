@@ -12,9 +12,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { theme } from '../theme';
 import { Card, Button, WeightInput, WaterIntakeButton } from '../components';
-import { useUserStore, useWeightStore, useHydrationStore, useSymptomsStore, useExamsStore } from '../store';
+import { useUserStore, useWeightStore, useHydrationStore, useSymptomsStore, useExamsStore, useAuthStore } from '../store';
 import { formatDate, getTrimesterLabel, calculateBMI } from '../utils';
 import { WEIGHT_GAIN_RECOMMENDATIONS, SYMPTOM_TYPES } from '../constants';
+import { logout } from '../services/auth';
 
 export function ProfileScreen() {
   const navigation = useNavigation();
@@ -43,6 +44,8 @@ export function ProfileScreen() {
   const exams = useExamsStore((state) => state.entries);
   const getExamsByDate = useExamsStore((state) => state.getExamsByDate);
   const loadExams = useExamsStore((state) => state.loadExams);
+
+  const setAuthenticated = useAuthStore((state) => state.setAuthenticated);
 
   const today = new Date();
   const todaySymptoms = getSymptomsByDate(today);
@@ -336,6 +339,15 @@ export function ProfileScreen() {
             </View>
           </View>
         </Card>
+
+        <Card style={styles.logoutCard}>
+          <Button
+            title="Sair da Conta"
+            onPress={handleLogout}
+            variant="outline"
+            style={styles.logoutButton}
+          />
+        </Card>
       </ScrollView>
 
       {/* Modal de Registro de Peso */}
@@ -535,6 +547,13 @@ const styles = StyleSheet.create({
   statLabel: {
     ...theme.typography.caption,
     color: theme.colors.textSecondary,
+  },
+  logoutCard: {
+    marginBottom: theme.spacing.xl,
+    marginTop: theme.spacing.md,
+  },
+  logoutButton: {
+    borderColor: theme.colors.error,
   },
   symptomsCard: {
     marginBottom: theme.spacing.md,
