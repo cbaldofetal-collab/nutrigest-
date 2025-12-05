@@ -160,16 +160,20 @@ export function ReportsScreen() {
         await shareReportPDF(pdfUri);
         Alert.alert('Sucesso', 'Relatório gerado e pronto para compartilhar!');
       } else {
-        Alert.alert(
-          'Relatório Gerado! 📄', 
-          'Uma nova janela foi aberta com o relatório.\n\n' +
-          'Para baixar o PDF:\n' +
-          '1. Clique no botão "📥 Baixar PDF" no canto superior direito\n' +
-          '2. O PDF será baixado automaticamente\n' +
-          '3. Encontre o arquivo na pasta de Downloads\n\n' +
-          'Depois você pode enviar o PDF ao seu médico!',
-          [{ text: 'Entendi', style: 'default' }]
-        );
+        // Verificar se a janela foi aberta
+        setTimeout(() => {
+          Alert.alert(
+            'Relatório Gerado! 📄', 
+            'Uma nova janela foi aberta com o relatório.\n\n' +
+            'Se a janela não abriu, verifique se o bloqueador de pop-ups está desativado.\n\n' +
+            'Para baixar o PDF:\n' +
+            '1. Na nova janela, clique no botão "📥 Baixar PDF" no topo\n' +
+            '2. Ou use Ctrl+P (Cmd+P no Mac) e escolha "Salvar como PDF"\n' +
+            '3. O PDF será baixado na pasta de Downloads\n\n' +
+            'Depois você pode enviar o PDF ao seu médico!',
+            [{ text: 'Entendi', style: 'default' }]
+          );
+        }, 1000);
       }
     } catch (error: any) {
       const appError = handleError(error);

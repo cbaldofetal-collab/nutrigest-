@@ -968,9 +968,12 @@ async function generatePDFForWeb(html: string): Promise<string> {
       }
 
       // Criar uma nova janela com o HTML
-      const printWindow = window.open('', '_blank');
+      const printWindow = window.open('', '_blank', 'width=800,height=600');
       if (!printWindow) {
-        reject(new Error('Não foi possível abrir a janela de impressão. Verifique se o bloqueador de pop-ups está desativado.'));
+        const errorMsg = 'Não foi possível abrir a janela de impressão. Verifique se o bloqueador de pop-ups está desativado e tente novamente.';
+        console.error(errorMsg);
+        alert(errorMsg);
+        reject(new Error(errorMsg));
         return;
       }
 
