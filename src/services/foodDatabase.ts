@@ -1230,16 +1230,25 @@ const MOCK_FOODS: Food[] = [
  * Busca alimentos por nome (simulação de busca com autocompletar)
  * Inclui alimentos da base mock e alimentos customizados do usuário
  */
+// Função para remover acentos e normalizar texto
+function normalizeText(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}
+
 export async function searchFoods(query: string): Promise<Food[]> {
   if (!query.trim()) return [];
 
-  const lowerQuery = query.toLowerCase();
+  const normalizedQuery = normalizeText(query);
   
   // Buscar em alimentos mock
   const mockResults = MOCK_FOODS.filter(
     (food) =>
-      food.name.toLowerCase().includes(lowerQuery) ||
-      (food.brand && food.brand.toLowerCase().includes(lowerQuery))
+      normalizeText(food.name).includes(normalizedQuery) ||
+      (food.brand && normalizeText(food.brand).includes(normalizedQuery))
   );
 
   // Buscar em alimentos customizados
@@ -1247,8 +1256,8 @@ export async function searchFoods(query: string): Promise<Food[]> {
     const customFoods = await storage.getCustomFoods();
     const customResults = customFoods.filter(
       (food: Food) =>
-        food.name.toLowerCase().includes(lowerQuery) ||
-        (food.brand && food.brand.toLowerCase().includes(lowerQuery))
+        normalizeText(food.name).includes(normalizedQuery) ||
+        (food.brand && normalizeText(food.brand).includes(normalizedQuery))
     );
 
     // Combinar resultados (customizados primeiro)

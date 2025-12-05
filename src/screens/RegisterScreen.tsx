@@ -26,6 +26,7 @@ export function RegisterScreen() {
   const [customFoodProtein, setCustomFoodProtein] = useState('');
   const [customFoodIron, setCustomFoodIron] = useState('');
   const [isCreatingFood, setIsCreatingFood] = useState(false);
+  const [searchKey, setSearchKey] = useState(0); // Key para resetar o FoodSearchInput
   const addMeal = useMealsStore((state) => state.addMeal);
   const error = useMealsStore((state) => state.error);
   const isLoading = useMealsStore((state) => state.isLoading);
@@ -38,6 +39,7 @@ export function RegisterScreen() {
   };
 
   const handleCreateCustomFood = (query: string) => {
+    console.log('Criando alimento personalizado:', query);
     setCustomFoodName(query);
     setCustomFoodBrand('');
     setCustomFoodServingSize('100');
@@ -46,9 +48,17 @@ export function RegisterScreen() {
     setCustomFoodProtein('');
     setCustomFoodIron('');
     setShowCreateModal(true);
+    console.log('Modal deve estar visível agora');
   };
 
   const handleSaveCustomFood = async () => {
+    console.log('Salvando alimento personalizado:', {
+      name: customFoodName,
+      calories: customFoodCalories,
+      protein: customFoodProtein,
+      iron: customFoodIron,
+    });
+
     if (!customFoodName.trim()) {
       Alert.alert('Atenção', 'O nome do alimento é obrigatório');
       return;
@@ -132,13 +142,19 @@ export function RegisterScreen() {
         date: new Date(),
       });
 
+      // Limpar estado imediatamente
+      setSelectedFood(null);
+      setQuantity(1);
+      setSearchKey(prev => prev + 1); // Resetar o campo de busca
+      clearError();
+      
       Alert.alert('Sucesso', 'Alimento registrado com sucesso!', [
         {
           text: 'OK',
           onPress: () => {
+            // Garantir que está limpo
             setSelectedFood(null);
             setQuantity(1);
-            clearError();
           },
         },
       ]);
@@ -172,6 +188,7 @@ export function RegisterScreen() {
             </TouchableOpacity>
           </View>
           <FoodSearchInput 
+            key={searchKey}
             onSelectFood={handleSelectFood}
             onCreateCustomFood={handleCreateCustomFood}
           />
