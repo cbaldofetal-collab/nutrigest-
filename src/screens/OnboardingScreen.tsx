@@ -40,17 +40,22 @@ export function OnboardingScreen({ onComplete }: { onComplete: () => void }) {
       }
       setStep(2);
     } else if (step === 2) {
-      const heightNum = parseFloat(height);
-      const weightNum = parseFloat(initialWeight);
+      const heightTrimmed = height.trim();
+      const weightTrimmed = initialWeight.trim();
+      const heightNum = parseFloat(heightTrimmed);
+      const weightNum = parseFloat(weightTrimmed);
       
-      if (!height || heightNum <= 0 || heightNum > 250) {
-        Alert.alert('Atenção', 'Por favor, informe uma altura válida (em cm)');
+      console.log('Validando passo 2:', { heightTrimmed, weightTrimmed, heightNum, weightNum });
+      
+      if (!heightTrimmed || isNaN(heightNum) || heightNum <= 0 || heightNum > 250) {
+        Alert.alert('Atenção', 'Por favor, informe uma altura válida (em cm, entre 1 e 250)');
         return;
       }
-      if (!initialWeight || weightNum <= 0 || weightNum > 200) {
-        Alert.alert('Atenção', 'Por favor, informe um peso válido (em kg)');
+      if (!weightTrimmed || isNaN(weightNum) || weightNum <= 0 || weightNum > 200) {
+        Alert.alert('Atenção', 'Por favor, informe um peso válido (em kg, entre 1 e 200)');
         return;
       }
+      console.log('Validação passou, avançando para passo 3');
       setStep(3);
     } else if (step === 3) {
       const weekNum = parseInt(gestationalWeek);
