@@ -12,8 +12,30 @@ const path = require('path');
 console.log('🚀 Iniciando build seguro para web...');
 
 try {
-  // Garantir que o patch seja aplicado
-  console.log('🔧 Aplicando patches...');
+  // Garantir que o patch seja aplicado ANTES de tudo
+  console.log('🔧 Aplicando correção do minimatch...');
+  
+  // Primeiro, tentar aplicar o fix manual (mais confiável)
+  try {
+    const fixScript = path.join(process.cwd(), 'scripts/fix-minimatch.js');
+    if (fs.existsSync(fixScript)) {
+      execSync(`node ${fixScript}`, {
+        stdio: 'inherit',
+        cwd: process.cwd(),
+        env: {
+          ...process.env,
+          NODE_ENV: process.env.NODE_ENV || 'production',
+        },
+      });
+      console.log('✅ Fix manual aplicado com sucesso');
+    } else {
+      console.warn('⚠️  Script fix-minimatch.js não encontrado');
+    }
+  } catch (fixError) {
+    console.warn('⚠️  Erro ao aplicar fix manual:', fixError.message);
+  }
+  
+  // Depois, tentar aplicar patches via patch-package
   try {
     execSync('npx patch-package', {
       stdio: 'inherit',
@@ -23,21 +45,19 @@ try {
         NODE_ENV: process.env.NODE_ENV || 'production',
       },
     });
-    console.log('✅ Patches aplicados com sucesso');
+    console.log('✅ Patches do patch-package aplicados');
   } catch (patchError) {
-    console.warn('⚠️  Aviso: Não foi possível aplicar patches, continuando...');
-    // Tentar aplicar o fix manualmente
-    try {
-      const fixScript = path.join(process.cwd(), 'scripts/fix-minimatch.js');
-      if (fs.existsSync(fixScript)) {
-        execSync(`node ${fixScript}`, {
-          stdio: 'inherit',
-          cwd: process.cwd(),
-        });
-        console.log('✅ Fix manual aplicado');
-      }
-    } catch (fixError) {
-      console.warn('⚠️  Não foi possível aplicar fix manual');
+    console.warn('⚠️  Aviso: Não foi possível aplicar patch-package, mas fix manual já foi aplicado');
+  }
+  
+  // Verificar se o patch foi aplicado
+  const expoCliPath = path.join(process.cwd(), 'node_modules/@expo/cli/build/src/export/exportAssets.js');
+  if (fs.existsSync(expoCliPath)) {
+    const content = fs.readFileSync(expoCliPath, 'utf8');
+    if (content.includes('minimatchFn') || !content.includes('(0, _minimatch).default')) {
+      console.log('✅ Verificação: Patch aplicado corretamente');
+    } else {
+      console.warn('⚠️  Verificação: Patch pode não ter sido aplicado corretamente');
     }
   }
 
